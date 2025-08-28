@@ -9,12 +9,68 @@ C언어를 시자아아아아아악 하겠습니다아아아
 scanf는 엔터로 구분된 입력도 그냥 일자로 받아버리네? 어떻게?  
 python은 그런 거 못하잖아. 줄바꿈 해서 따로 입력받아야되는데.
 
-# 괜찮게 푼 문제
+# 기억해 둘 코드들
 
 3 Gold 5_2436 : 처음으로 풀어본 c언어 골드. while, if를 c에서는 이런 식으로 작성한다.
-랜덤 마라톤 64_A 33964 : c언어에 대해 많은 것을 배웠다. 이 코드 하나로!
+RM 64_A 33964 : c언어에 대해 많은 것을 배웠다. 이 코드 하나로!
+RM 65_C 2596 : 포인터는 곧 주소다. `const char *p`
 
-## 00. 기타
+# 00. 기타
+
+## 랜덤 마라톤 65
+
+#### <stdlib.h> qsort
+
+`qsort(arr, size, sizeof(int), compare);`
+
+    void qsort(
+        void *base,            // 정렬할 '배열의 시작 주소'
+        size_t nmemb,          // 원소(칸) 개수
+        size_t size,           // 원소 하나의 바이트 크기(예: int면 sizeof(int))
+        int (*compar)(const void*, const void*) // '두 원소를 비교'하는 함수
+    );
+
+    int compare(const void *a, const void *b) {
+        int num1 = *(int*)a; // (1) a를 int*로 캐스팅 → 역참조(*)로 값 획득
+        int num2 = *(int*)b; // (2) b도 동일
+        if (num1 < num2) return -1; // (3) num1이 더 작으면 '앞으로'(-1)
+        else if (num1 > num2) return 1; // (4) num1이 더 크면 '뒤로'(+1)
+        else return 0; // (5) 같으면 0
+    }
+
+#### 투 포인터
+
+두 개의 정렬된 배열을 합쳐 정렬하려면 배열마다 0에서 시작하는 포인터를 만들어주고,  
+포인터가 가리키는 값이 작은 걸 출력 후 그 포인터를 한 칸 앞으로 보내는 것을 반복하는 것이다.
+
+#### 포인터와 const
+
+일단 const가 앞에 붙으면, 기본적으로 그 데이터가 수정 불가능하다는 의미이다.  
+주소가 바뀌지 않아서가 아니라, 데이터를 건드리지 않기 때문에 `const char *`를 쓰는 것.
+
+const char *p; // (1) "데이터"가 const: *p 수정 불가, p는 다른 곳을 가리키게 변경 가능  
+char * const p; // (2) "포인터"가 const: p 재지정 불가, *p 수정 가능  
+const char * const p; // (3) 둘 다 const: p 재지정 불가, *p 수정 불가
+
+#### 포인터
+
+주소를 입력받는다.
+
+    // (1) 배열과 포인터가 같은 결과인지 확인
+    int a[3] = {10,20,30};
+    int *p = a;
+    printf("%d %d %d\n", a[2], *(a+2), p[2]); // 모두 30
+
+    // (2) 문자열 이동
+    char s[] = "HELLO";
+    char *q = s + 1; // 'E'부터
+    printf("%c %c\n", s[1], q[0]); // E E
+
+    // (3) 6글자 조각 비교
+    const char *x = "011100001111"; // "011100" + "001111"
+    const char *c1 = x;       // 첫 6글자
+    const char *c2 = x + 6;   // 다음 6글자
+    // c1[0..5], c2[0..5] 각각 비교해보기
 
 ## 랜덤 마라톤 64
 
@@ -46,6 +102,7 @@ and &&, or ||, not !
 
 #### 삼항 연산자 (조건 연산자)
 
+`printf("%d", (X < Y) ? X : Y)` 이런 느낌  
 조건식 ? 값1 : 값2  
 조건식이 참(≠0)이면 → 값1 반환  
 조건식이 거짓(=0)이면 → 값2 반환
@@ -98,7 +155,7 @@ stderr : Standard Error (에러 메시지 출력, 보통 화면)
 `char *s = malloc(n + 1);` // 문자 n개 + '\0'
 `s[n] = '\0'; ` // 직접 문자열의 끝을 표시해줘야 한다.
 
-`int *arr = malloc(n * sizeof(int));` // n칸짜리 배열 만들기
+`int *arr = malloc(n * sizeof(int));` // n칸짜리 int 배열 만들기
 
 `free(arr)` // 사용한 메모리를 꼭 반납해야 한다.
 
