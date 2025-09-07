@@ -4,6 +4,7 @@
     "atoi",
     "Baekjoon",
     "bcdfghjklmnpqrstvwxyz",
+    "bsearch",
     "fgets",
     "isable",
     "malloc",
@@ -11,9 +12,11 @@
     "nmemb",
     "nums",
     "qsort",
+    "rstrip",
     "scanf",
     "stdlib",
     "strcat",
+    "strcspn",
     "uclid",
     "wname"
   ]

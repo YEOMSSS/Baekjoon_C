@@ -11,13 +11,70 @@ python은 그런 거 못하잖아. 줄바꿈 해서 따로 입력받아야되는
 
 # 기억해 둘 코드들
 
-3 Gold 5_2436 : 처음으로 풀어본 c언어 골드. while, if를 c에서는 이런 식으로 작성한다.
-RM 64_A 33964 : c언어에 대해 많은 것을 배웠다. 이 코드 하나로!
-RM 65_C 2596 : 포인터는 곧 주소다. `const char *p`
+3 G5_2436 : 처음으로 풀어본 c언어 골드. while, if를 c에서는 이런 식으로 작성한다.
+RaMa 64_A 33964 : c언어에 대해 많은 것을 배웠다. 이 코드 하나로!
+RaMa 65_C 2596 : 포인터는 곧 주소다. `const char *p`
+5 B1_1110 : 문자와 숫자 간의 변환
+00.selection sort_23900 : qsort와 bsearch로 선택정렬 흉내내기
+
+# 자료구조 기초
+
+## 선택정렬
+
+배열중 최소값을 찾아 맨 앞자리와 스왑
+
+#### 배열 이름은 곧 첫 번째 원소의 주소
+
+이거 존나 중요한듯. 주소의 관점에서 arr = &arr[0]
+
+    int arr[3] = {10, 20, 30};
+
+    printf("%p\n", (void*)arr);
+    printf("%p\n", (void*)&arr[0]);
+
+#### <stdlib.h> bsearch
+
+파이썬의 list.index() 느낌이지만 조건이 붙는다.  
+이미 배열이 정렬되어 있어야 하며 이진탐색으로 그 원소의 주소를 찾는다.  
+그래서 p - B를 해주면 인덱스가 나온다. 현주소 - 첫주소 = 현주소의 인덱스(원소 간 거리)
+
+    int key = 20;
+    int *p = bsearch(&key, B, N, sizeof(int), compare);
+    int idx = (int)(p - B);   // 1
 
 # 00. 기타
 
 ## 난이도별 정리
+
+#### '0'으로 숫자 문자 변환하기
+
+1. 문자 → 숫자 변환할 때 (빼기)
+   char c = '7';
+   int n = c - '0'; // n = 7
+
+'7'의 아스키 코드 = 55
+'0'의 아스키 코드 = 48
+
+55 - 48 = 7
+👉 문자 '7'을 정수 7로 바꿀 때는 - '0'.
+
+2. 숫자 → 문자 변환할 때 (더하기)
+   int n = 7;
+   char c = '0' + n; // c = '7'
+
+'0' = 48
+
+48 + 7 = 55 → 아스키 코드 55는 '7'
+👉 정수 7을 문자 '7'로 바꿀 때는 + '0'
+
+#### <string.h> strcspn
+
+`string[strcspn(string, "\n")] = '\0';`
+strcspn(string, "\n") → string에서 처음 \n이 나오는 위치의 인덱스를 반환.  
+그 자리를 '\0'로 바꿔버림. 결과적으로 문자열에서 개행 문자가 잘려나감.
+
+strcspn은 왼쪽부터 확인하는 놈이다.  
+어차피 한줄을 읽을 때 \n은 마지막에 한번만 들어오니 rstrip처럼 쓸 수 있다.
 
 #### 포인터 배열
 
@@ -38,7 +95,9 @@ RM 65_C 2596 : 포인터는 곧 주소다. `const char *p`
 
 #### <stdlib.h> qsort
 
-`qsort(arr, size, sizeof(int), compare);`
+qsort는 배열을 정렬하는 c언어의 소중한 내장함수.  
+`qsort(arr, size, sizeof(int), compare);`  
+여기서 compare는 직접 짜줘야한다.
 
     void qsort(
         void *base,            // 정렬할 '배열의 시작 주소'
@@ -47,6 +106,13 @@ RM 65_C 2596 : 포인터는 곧 주소다. `const char *p`
         int (*compar)(const void*, const void*) // '두 원소를 비교'하는 함수
     );
 
+compare는 배열에서 임의로 2개의 원소를 집어 비교한다.  
+qsort는 어떤 타입의 배열이든 정렬할 수 있어야 합니다.  
+그래서 원소 타입을 모르니까 → 매개변수 타입을 (const void*)로 통일해둡니다.  
+비교 함수 안에서 다시 (int*)로 바꿔야 정수 값을 꺼낼 수 있습니다.  
+(int*)a는 주소를 가리키고 있으니, *를 붙여 값으로 꺼낸다.  
+(int\*)는 그냥 이 포인터가 int형이라는 것일 뿐이지롱.
+
     int compare(const void *a, const void *b) {
         int num1 = *(int*)a; // (1) a를 int*로 캐스팅 → 역참조(*)로 값 획득
         int num2 = *(int*)b; // (2) b도 동일
@@ -54,6 +120,8 @@ RM 65_C 2596 : 포인터는 곧 주소다. `const char *p`
         else if (num1 > num2) return 1; // (4) num1이 더 크면 '뒤로'(+1)
         else return 0; // (5) 같으면 0
     }
+
+return (x > y) - (x < y); 이거로 (3, 4, 5)단계 날먹도 가능하다. (오름차순)
 
 #### 투 포인터
 
@@ -70,6 +138,9 @@ char * const p; // (2) "포인터"가 const: p 재지정 불가, *p 수정 가�
 const char * const p; // (3) 둘 다 const: p 재지정 불가, *p 수정 불가
 
 #### 포인터
+
+`char *p = string;`
+string[0]을 가리키는 포인터. p는 string[0]의 주소, \*p는 그 값. 즉 string[0] 자체
 
 주소를 입력받는다.
 
