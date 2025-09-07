@@ -17,6 +17,23 @@ RM 65_C 2596 : 포인터는 곧 주소다. `const char *p`
 
 # 00. 기타
 
+## 난이도별 정리
+
+#### 포인터 배열
+
+브1 1924.c
+
+포인터 배열은 "주소"를 원소로 가지는 배열이다.  
+각 원소는 문자열(또는 데이터)이 저장된 위치를 가리킨다.  
+따라서 길이가 다른 문자열들도 함께 저장할 수 있다.
+
+    #include <stdio.h>
+    int main(void) {
+        const char *wname[3] = {"SUN","MOND","WE"};
+        for (int i=0;i<3;i++) printf("%s\n", wname[i]);
+        return 0;
+    }
+
 ## 랜덤 마라톤 65
 
 #### <stdlib.h> qsort

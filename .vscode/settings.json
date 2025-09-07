@@ -7,12 +7,14 @@
     "fgets",
     "isable",
     "malloc",
+    "MOND",
     "nmemb",
     "nums",
     "qsort",
     "scanf",
     "stdlib",
     "strcat",
-    "uclid"
+    "uclid",
+    "wname"
   ]
 }
