@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "aeiou",
+    "appendleft",
     "atoi",
     "Baekjoon",
     "bcdfghjklmnpqrstvwxyz",
@@ -11,6 +12,7 @@
     "MOND",
     "nmemb",
     "nums",
+    "popleft",
     "qsort",
     "rstrip",
     "scanf",

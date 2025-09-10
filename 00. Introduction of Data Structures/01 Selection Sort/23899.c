@@ -40,7 +40,7 @@ void selection_sort(int *arr_A, int *arr_B, const int N)
         {
             swap(&arr_A[i], &arr_A[max_idx]);
 
-            // c에서는 0이면 거짓, 0이 아니면 참
+            // c언어에서는 0이면 거짓, 0이 아니면 참
             if (is_equal(arr_A, arr_B, N))
             {
                 putchar('1'); // 참일 때 출력
