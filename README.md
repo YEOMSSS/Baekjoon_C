@@ -17,42 +17,6 @@ RaMa 65_C 2596 : 포인터는 곧 주소다. `const char *p`
 5 B1_1110 : 문자와 숫자 간의 변환
 00.selection sort_23900 : qsort와 bsearch로 선택정렬 흉내내기
 
-# 자료구조 기초
-
-## 배열과 포인터
-
-#### gets
-
-쓰지마. fgets 써  
-문자열 받을 때만 fgets사용하고 int나 그런 다른거 받을땐 그냥 scanf가 편하네.
-
-#### <math.h> sqrt
-
-sqrt(n)는 기본적으로 n의 제곱근을 double형으로 반환한다.
-
-## 선택정렬
-
-배열중 최소값을 찾아 맨 앞자리와 스왑
-
-#### 배열 이름은 곧 첫 번째 원소의 주소
-
-이거 존나 중요한듯. 주소의 관점에서 arr = &arr[0]
-
-    int arr[3] = {10, 20, 30};
-
-    printf("%p\n", (void*)arr);
-    printf("%p\n", (void*)&arr[0]);
-
-#### <stdlib.h> bsearch
-
-파이썬의 list.index() 느낌이지만 조건이 붙는다.  
-이미 배열이 정렬되어 있어야 하며 이진탐색으로 그 원소의 주소를 찾는다.  
-그래서 p - B를 해주면 인덱스가 나온다. 현주소 - 첫주소 = 현주소의 인덱스(원소 간 거리)
-
-    int key = 20;
-    int *p = bsearch(&key, B, N, sizeof(int), compare);
-    int idx = (int)(p - B);   // 1
-
 # 00. 기타
 
 ## 난이도별 정리

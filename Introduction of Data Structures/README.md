@@ -1,6 +1,42 @@
 # 자료구조기초
 
-## 3주차 실습 배열과 포인터
+실습이 재밌긴 재밌어.  
+UTF-8에서 EUC-KR로 바꾸고 해야 한글 출력된다.
+
+## 실습 이외의 연습들
+
+### 배열과 포인터
+
+#### <math.h> sqrt
+
+sqrt(n)는 기본적으로 n의 제곱근을 double형으로 반환한다.
+
+### 선택정렬
+
+배열중 최소값을 찾아 맨 앞자리와 스왑
+
+#### 배열 이름은 곧 첫 번째 원소의 주소
+
+이거 존나 중요한듯. 주소의 관점에서 arr = &arr[0]
+
+    int arr[3] = {10, 20, 30};
+
+    printf("%p\n", (void*)arr);
+    printf("%p\n", (void*)&arr[0]);
+
+#### <stdlib.h> bsearch
+
+파이썬의 list.index() 느낌이지만 조건이 붙는다.  
+이미 배열이 정렬되어 있어야 하며 이진탐색으로 그 원소의 주소를 찾는다.  
+그래서 p - B를 해주면 인덱스가 나온다. 현주소 - 첫주소 = 현주소의 인덱스(원소 간 거리)
+
+    int key = 20;
+    int *p = bsearch(&key, B, N, sizeof(int), compare);
+    int idx = (int)(p - B);   // 1
+
+## 3주차 실습 - 배열과 포인터
+
+### 배열
 
 #### 배열의 초기화
 
@@ -14,10 +50,35 @@
 
 #### scanf로 문자열 입력받기
 
-scanf_s는 sizeof로 문자열을 받아야 한다? scanf는 필요없던데?  
-`scanf("%s", str)`
-`scanf_s("%s", str, sizeof(str));`
+scanf_s는 sizeof로 문자열을 받아야 한다? scanf는 필요없던데?
+
+    char str[20]; // 일 때...
+    scanf("%s", str);
+    scanf_s("%s", str, sizeof(str));
 
 #### 다차원 배열
 
 행이 앞이고 열이 뒤. 이건 뭐 당연한거지
+
+#### gets()
+
+gets는 엔터를 만나면 개행으로 바꿔 거기까지 저장한다.  
+문자열에서는 readline처럼 쓰기가 더 편함. scanf보다.  
+하씨 근데 이거 fgets 써야하는거 아닌가......
+
+### 포인터
+
+#### 포인터 배열
+
+생각보다 쉽지않다. 백준좀 돌려봐야겠는데
+
+    ptr + i = &array[i]
+    *(ptr + i) = array[i]
+
+    ptr = array = &array[0]
+    ptr + 7 = &array[0] + 7 = &array[7]
+
+#### %s와 포인터
+
+`printf("%s", pointer)`를 하면 주소가 가리키는 문자배열을 읽는다.  
+포인터의 인덱스부터 문자배열을 \0이 나올때까지 읽는다.
