@@ -2,8 +2,9 @@
 #include <stdio.h>
 
 void recursion(int finish, int start)
-{ // finish는 num의 값을 받는 매개변수,
-  // start 는 최초의 값으로 설정된 매개변수
+{
+    // finish는 num의 값을 받는 매개변수,
+    // start 는 최초의 값으로 설정된 매개변수
 
     if (finish == start)
     {
