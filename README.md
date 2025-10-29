@@ -78,6 +78,11 @@ strcspn은 왼쪽부터 확인하는 놈이다.
         return 0;
     }
 
+## 랜덤 마라톤 74
+
+#### INT_MAX, INT_MIN, LLOMG_MIN 등등
+<limits.h>에 있다. inf, -inf를 의미함.  
+
 ## 랜덤 마라톤 70
 
 #### `%*d, %*f`
