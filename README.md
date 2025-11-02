@@ -80,6 +80,19 @@ strcspn은 왼쪽부터 확인하는 놈이다.
 
 ## 랜덤 마라톤 74
 
+#### switch-case문
+파이썬에 매치케이스가 있다면 c언어에는 스위치케이스가 있다.  
+다만 정수형에 대해서만 가능. char는 정수형이므로 쌉가능.  
+
+    switch(x)
+    {
+    case 'a':
+        break;
+    default:
+        break;
+    }
+이런 느낌.
+
 #### INT_MAX, INT_MIN, LLOMG_MIN 등등
 <limits.h>에 있다. inf, -inf를 의미함.  
 
