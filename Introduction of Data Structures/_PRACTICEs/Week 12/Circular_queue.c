@@ -1,0 +1,153 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#define cQ_SIZE 4
+
+typedef char element;
+// * front가 있는 자리는 사용하지 않고 항상 빈자리로 둠 *
+typedef struct
+{
+    element queue[cQ_SIZE];
+    int front, rear;
+} QueueType;
+
+QueueType *createQueue();                  // 공백 순차 큐를 생성하는 연산
+int isEmpty(QueueType *cQ);                // 원형 큐가 공백 상태인지 검사하는 연산
+int isFull(QueueType *cQ);                 // 원형 큐가 포화 상태인지 검사하는 연산
+void enQueue(QueueType *cQ, element item); // 원형 큐의 rear에 원소를 삽입하는 연산
+element deQueue(QueueType *cQ);            // 원형 큐의 front에서 원소를 삭제하고 반환하는 연산
+element peek(QueueType *cQ);               // 원형 큐의 가장 앞에 있는 원소를 검색하는 연산
+void printQ(QueueType *cQ);
+
+// 원형큐는 선형 큐의 문제점을 보완하기 위한 자료구조이다.
+// 원형 큐에서는 rear의 증가가(rear + 1) % arraysize 형식으로 변환한다.
+
+// 공백 원형 큐를 생성하는 연산
+QueueType *createQueue()
+{
+    QueueType *cQ;
+    cQ = (QueueType *)malloc(sizeof(QueueType));
+
+    // 큐 크기 = 배열 크기
+    // 초기 상태 : front = rear = 0
+    cQ->front = 0; // front 초깃값 설정
+    cQ->rear = 0;  // rear 초깃값 설정
+    return cQ;
+}
+
+// 원형 큐가 공백 상태인지 검사하는 연산
+int isEmpty(QueueType *cQ)
+{
+    // 공백 상태 : front = rear
+    if (cQ->front == cQ->rear)
+    {
+        printf(" Circular Queue is empty! ");
+        return 1;
+    }
+    else
+        return 0;
+}
+
+// 원형 큐가 포화 상태인지 검사하는 연산
+int isFull(QueueType *cQ)
+{
+    // 포화 상태 : (rear+1) % 배열크기 = front
+    if (((cQ->rear + 1) % cQ_SIZE) == cQ->front)
+    {
+        printf("  Circular Queue is full! ");
+        return 1;
+    }
+    else
+        return 0;
+}
+
+// 원형 큐의 rear에 원소를 삽입하는 연산
+void enQueue(QueueType *cQ, element item)
+{
+    // 포화상태일 때는 return
+    if (isFull(cQ))
+        return;
+    else
+    {
+        cQ->rear = (cQ->rear + 1) % cQ_SIZE;
+        cQ->queue[cQ->rear] = item;
+    }
+}
+
+// 원형 큐의 front에서 원소를 삭제하고 반환하는 연산
+element deQueue(QueueType *cQ)
+{
+    if (isEmpty(cQ))
+        exit(1);
+    else
+    {
+        cQ->front = (cQ->front + 1) % cQ_SIZE;
+        return cQ->queue[cQ->front];
+    }
+}
+
+// 원형 큐의 가장 앞에 있는 원소를 검색하는 연산
+element peek(QueueType *cQ)
+{
+    // 공백 상태이면 연산 중단
+    if (isEmpty(cQ))
+        exit(1);
+    else
+        // Q->front값에 변화 없도록 할 것
+        return cQ->queue[(cQ->front + 1) % cQ_SIZE];
+}
+
+// 원형 큐의 원소를 출력하는 연산
+void printQ(QueueType *cQ)
+{
+    int i, first, last;
+    // 실제 인덱스는 first+1, last+1
+    first = (cQ->front + 1) % cQ_SIZE;
+    last = (cQ->rear + 1) % cQ_SIZE;
+    printf(" Circular Queue : [");
+    i = first;
+    while (i != last)
+    {
+        printf("%3c", cQ->queue[i]);
+        i = (i + 1) % cQ_SIZE;
+    }
+    printf(" ] ");
+}
+
+int main(void)
+{
+    QueueType *cQ = createQueue();
+    element data;
+    printf("\n ***** 원형 큐의 연산 *****\n");
+    printf("\n 삽입 A>>");
+    enQueue(cQ, 'A');
+    printQ(cQ);
+    printf("\n 삽입 B>>");
+    enQueue(cQ, 'B');
+    printQ(cQ);
+    printf("\n 삽입 C>>");
+    enQueue(cQ, 'C');
+    printQ(cQ);
+    data = peek(cQ);
+    printf(" peek item : %c \n", data);
+
+    printf("\n 삭제  >>");
+    data = deQueue(cQ);
+    printQ(cQ);
+    printf("\t 삭제 데이터 : %c", data);
+    printf("\n 삭제  >>");
+    data = deQueue(cQ);
+    printQ(cQ);
+    printf("\t 삭제 데이터 : %c", data);
+    printf("\n 삭제  >>");
+    data = deQueue(cQ);
+    printQ(cQ);
+    printf("\t 삭제 데이터 : %c", data);
+
+    printf("\n 삽입 D>>");
+    enQueue(cQ, 'D');
+    printQ(cQ);
+    printf("\n 삽입 E>>");
+    enQueue(cQ, 'E');
+    printQ(cQ);
+}
