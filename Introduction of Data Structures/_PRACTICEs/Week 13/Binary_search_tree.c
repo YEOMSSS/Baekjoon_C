@@ -222,9 +222,10 @@ void deleteNode(treeNode *root, element key)
         }
 
         // 후계자 위치에 따라 후계자 부모와 후계자 자식을 이어주기
-        // 후계자 노드의 원래 자리를 자식 노드에게 물려주기
-        if (succ_parent->left == succ) // 왼쪽일 일이 있나? 오른쪽 따라간건데?
-            succ_parent->left = succ->left;
+        // 후계자 노드의 원래 자리를 후계자의 자식 노드에게 물려주기
+        // 후계자 노드는 오른쪽이 NULL이므로 왼쪽자식만 자기 자리에 얹으면 된다.
+        if (succ_parent->left == succ)      // 왼쪽일 일이 있나? 오른쪽 따라간건데?
+            succ_parent->left = succ->left; // 오른쪽으로 한칸도 안갔다면 그럴수있지.
         else
             succ_parent->right = succ->left;
 

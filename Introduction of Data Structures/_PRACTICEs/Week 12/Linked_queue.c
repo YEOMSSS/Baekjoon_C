@@ -69,7 +69,7 @@ void enQueue(LQueueType *LQ, element item)
     // 3. 현재 연결 큐가 공백 상태가 아닐 때
     else
     {
-        // 현재 rear.link에 내 주소 넣고, rear에도 내 주소 넣고.
+        // 현재 rear.link(rear가 가리키는놈의 link)에 내 주소 넣고, rear에도 내 주소 넣고.
         LQ->rear->link = newNode;
         LQ->rear = newNode;
     }
