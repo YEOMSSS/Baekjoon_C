@@ -156,15 +156,15 @@ void DFS_adjList(graphType *g, int v)
             // 2-1. 정점 w를 방문하지 않은 경우
             if (!g->visited[w->vertex])
             {
-                push(w->vertex);               // 현재 정점 W를 스택에 push
+                push(w->vertex);               // 현재 정점 w를 스택에 push
                 g->visited[w->vertex] = TRUE;  // 정점 2에 대한 값을 TRUE로 설정
                 printf(" %c", w->vertex + 65); // 정점 0~6을 A~G로 바꾸어서 출력
                 v = w->vertex;                 // w를 v로 하여
-                w = g->adjList_H[v];           // 2 반복 위해 기존 w의 인접정점을 w에 넣음
+                w = g->adjList_H[v];           // 2 반복 위해 v의 인접정점을 w에 넣음
             }
             // 현재 정점 w가 이미 방문된 경우
             else
-                w = w->link; // 2 반복 위해 기존 w의 인접정점을 w에 넣음
+                w = w->link; // 2 반복 위해 기존 w의 인접정점을 w에 넣음. w의 다른 인접정점 확인하러 간다.
         }
         // 2-2. 현재 정점에서 순회를 진행할 인접 정점이 더 없는 경우에 스택 pop!
         v = pop();

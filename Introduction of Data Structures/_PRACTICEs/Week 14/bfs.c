@@ -96,6 +96,11 @@ void createGraph(graphType *g)
 // 그래프 g에 정점 v를 삽입하는 연산 : [예제 8-2]의 26~32행과 동일
 void insertVertex(graphType *g, int v)
 {
+    if (v >= MAX_VERTEX)
+    {
+        exit(1);
+    }
+
     if (((g->n) + 1) > MAX_VERTEX)
     {
         printf("\n 그래프 정점의 개수를 초과하였습니다!");
